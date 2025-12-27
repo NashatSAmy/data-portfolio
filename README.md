@@ -18,7 +18,7 @@ Initially, I analyzed the data using Pivot Tables in Google Sheets. While effect
 - **The Excel Calculation:** Averaging the profit margin of individual orders yielded a **15.61%** margin for Technology.
 - **The Reality:** This approach treats a \$10 order the same as a \$5,000 order.
 - **The Dashboard:** I built an interactive dashboard in Looker Studio to visualize these initial trends.
-  ![Dashboard Case Study](../data-portfolio/pics/case_study.png)
+  ![Dashboard Case Study](pics/case_study.png)
 
 ### 🐍 Phase 2: Python Correction (Financial Accuracy)
 

@@ -1,4 +1,4 @@
-# 📊 Superstore Sales Analysis & Customer Segmentation
+# 📊 Project 1: Superstore Sales Analysis & Customer Segmentation
 
 **Objective:**
 To analyze sales data, correct financial inaccuracies often found in spreadsheet-only analysis, and identify high-value "VIP" customers using advanced segmentation.
@@ -43,3 +43,32 @@ Moving beyond "what happened," I performed an **RFM Analysis** to find "Who are 
 - `rfm_analysis.py`: Advanced customer segmentation script.
 - `final_report.csv`: corrected financial data.
 - `vip_customers.csv`: List of top 30 clients.
+
+## 🕷️ Project 2: Bulk Web Scraper (Automated Data Extraction)
+
+**Objective:**
+To build a robust, automated data pipeline that extracts large-scale product data from a multi-page e-commerce website ("Books to Scrape") for market analysis.
+
+**Tools Used:**
+
+- **Language:** Python 3.12
+- **Libraries:** `BeautifulSoup` (Parsing), `Requests` (HTTP), `Pandas` (CSV Export), `Time` (Rate Limiting).
+- **Environment:** Fedora Linux (Virtual Env).
+
+**Key Technical Features:**
+
+- **Pagination Logic:** The script automatically loops through all 50 pages of the catalogue to ensure 100% data capture (1,000 items).
+- **Data Cleaning Pipeline:** Currency symbols (`£`) and encoding artifacts (`Â`) are stripped programmatically during extraction, not after.
+- **Ethical Scraping:** Implemented `time.sleep(1)` delays between requests to prevent server overload and mimic human behavior.
+- **Error Handling:** Includes status code checks to skip broken pages without crashing the scraper.
+
+**Outcome:**
+Generated a clean, 1,000-row dataset (`all_books_1000.csv`) ready for immediate pricing analysis.
+
+**Code Snippet & Output:**
+![Web Scraper Screenshot](pics/scrapping.png)
+
+**Files in this Module:**
+
+- `scraper_pro.py`: The production-grade script with pagination loops.
+- `all_books_1000.csv`: The final output dataset.

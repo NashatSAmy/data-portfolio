@@ -1,3 +1,21 @@
+"""
+BOOK SCRAPER PROJECT
+--------------------
+Target Website: http://books.toscrape.com/
+
+How to run this script:
+1. Install requirements: pip install requests beautifulsoup4 pandas
+2. Run the script: python scraper_pro.py
+3. The data will be saved to 'all_books_1000.csv'
+
+Concepts used:
+- Requests: To connect to the website.
+- BeautifulSoup: To read the HTML tags.
+- Time.sleep: To pause between pages (politeness).
+- Pandas: To save data to Excel/CSV.
+"""
+
+#Import necessary libraries
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -31,17 +49,28 @@ def scrape_all_books():
 
         # 4. Extract Data (Same logic as before)
         for book in books:
+            # 1. Title
             title = book.h3.a["title"]
+            
+            # 2. Price
             price_text = book.find("p", class_="price_color").text
+            clean_price = price_text.replace("£", "").replace("Â", "")
+            
+            # 3. Rating
             rating = book.find("p", class_="star-rating")["class"][1]
             
-            clean_price = price_text.replace("£", "").replace("Â", "")
+            # --- NEW PART: Availability ---
+            # We look for the paragraph with class "instock availability"
+            # .strip() removes the extra whitespace around the text
+            availability = book.find("p", class_="instock availability").text.strip()
+            # ------------------------------
             
             all_books_data.append({
                 "Title": title,
-                "Price_GBP": float(clean_price),
+                "Price": float(clean_price),
                 "Rating": rating,
-                "Page": page_num # Traceability (Good for debugging)
+                "Availability": availability,  # <--- Add this
+                "Page": page_num
             })
             
         # 5. Sleep to be polite (Professional Standard)

@@ -72,3 +72,38 @@ Generated a clean, 1,000-row dataset (`all_books_1000.csv`) ready for immediate 
 
 - `scraper_pro.py`: The production-grade script with pagination loops.
 - `all_books_1000.csv`: The final output dataset.
+
+## 🚀 Project 3: AI Book Scraper App (Streamlit Web Interface)
+
+**Objective:**
+To transform the "Book Scraper" script into a user-friendly Web Application, allowing non-technical users to trigger data extraction and download results without touching a terminal.
+
+**Tools Used:**
+
+- **Framework:** `Streamlit` (Python-based Frontend).
+- **Backend:** `Requests`, `BeautifulSoup`.
+- **Deployment:** Streamlit Cloud (Live on the Internet).
+
+**Key Features:**
+
+- **Interactive UI:** Users can select the number of pages (1-50) using a simple slider.
+- **Real-Time Feedback:** Displays a live progress bar and status updates (`"Scraping page 3 of 10..."`) so users aren't left guessing.
+- **One-Click Export:** Generates a clean CSV file and provides a dedicated "Download" button.
+- **Error Handling:** Visual error messages in the UI if the target site is down.
+
+**Live Demo:**
+[👉 Click here to test the App](https://data-portfolio-book-scrapper.streamlit.app/)
+_(Note: Replace the link above with your actual Streamlit URL)_
+
+**Code Snippet:**
+
+```python
+# The "Download" Button Logic
+csv = df.to_csv(index=False).encode('utf-8')
+st.download_button(
+    label="📥 Download Data as CSV",
+    data=csv,
+    file_name="scraped_books.csv",
+    mime="text/csv"
+)
+```

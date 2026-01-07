@@ -131,3 +131,26 @@ _Finding the top 5 most expensive books in the database:_
 ```sql
 SELECT title, price FROM books ORDER BY price DESC LIMIT 5;
 ```
+
+---
+
+## 🤖 Project 5: AI Salary Predictor (Machine Learning)
+
+**Objective:**
+To build and deploy a Machine Learning model that predicts salary based on years of experience, demonstrating the end-to-end AI lifecycle from training to deployment.
+
+**Tools Used:**
+
+- **Library:** `Scikit-Learn` (Linear & Polynomial Regression).
+- **Persistence:** `Joblib` (Model saving/loading).
+- **Visualization:** `Matplotlib` (Dynamic plotting).
+- **Frontend:** `Streamlit`.
+
+**Key Features:**
+
+- **Polynomial Regression:** Uses a Degree-2 polynomial to capture non-linear growth patterns (avoiding underfitting).
+- **Interactive Predictions:** Users can adjust input parameters via a slider to get real-time estimates.
+- **Dynamic Visualization:** The app plots the user's input directly onto the regression curve to explain the "Why" behind the prediction.
+
+**Live Demo:**
+[👉 Click here to test the AI Model](https://salary-prediction-modelai.streamlit.app/)

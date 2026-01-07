@@ -19,15 +19,10 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 csv_path = os.path.join(script_dir, 'salary_data.csv')
 model_path = os.path.join(script_dir, 'salary_model.pkl')
 poly_path = os.path.join(script_dir, 'poly_converter.pkl')
-# Load model and poly converter
+# 1. Load model and poly converter
 model = joblib.load(model_path)
 poly = joblib.load(poly_path)
 data = pd.read_csv(csv_path)
-
-# 1. Load Model, Converter, and Data
-model = joblib.load('salary_model.pkl')
-poly = joblib.load('poly_converter.pkl') # Load the tool that creates the curve
-data = pd.read_csv('salary_data.csv')
 
 st.title("💰 AI Salary Predictor (Polynomial)")
 st.write("This model uses Polynomial Regression to capture the 'curved' growth of salaries.")

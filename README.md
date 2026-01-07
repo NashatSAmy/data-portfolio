@@ -107,3 +107,27 @@ st.download_button(
     mime="text/csv"
 )
 ```
+
+## 🗄️ Project 4: SQL Data Pipeline (ETL)
+
+**Objective:**
+To upgrade the data storage from flat files (CSV) to a structured **Relational Database (SQLite)**. This allows for advanced querying, better data integrity, and scalability for larger datasets.
+
+**Tools Used:**
+
+- **Database:** SQLite (Lightweight, Serverless).
+- **Language:** SQL (Structured Query Language).
+- **Integration:** Python `sqlite3` module.
+
+**Key Technical Features:**
+
+- **Automated Schema Creation:** The script checks if the database exists and creates the table structure (`CREATE TABLE IF NOT EXISTS`) automatically.
+- **ETL Pipeline:** Extracted data from the web, Transformed the price strings into numbers, and Loaded it into the database (`INSERT INTO`).
+- **Transactional Integrity:** Uses `conn.commit()` to ensure data is safely saved after processing each page.
+
+**SQL Query Example:**
+_Finding the top 5 most expensive books in the database:_
+
+```sql
+SELECT title, price FROM books ORDER BY price DESC LIMIT 5;
+```

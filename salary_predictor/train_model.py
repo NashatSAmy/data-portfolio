@@ -1,9 +1,22 @@
+import streamlit as st
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.preprocessing import PolynomialFeatures
 import joblib
+import matplotlib.pyplot as plt
+import numpy as np
+import os 
 
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+csv_path = os.path.join(script_dir, 'salary_data.csv')
+model_path = os.path.join(script_dir, 'salary_model.pkl')
+poly_path = os.path.join(script_dir, 'poly_converter.pkl')
+
+model = joblib.load(model_path)
+poly = joblib.load(poly_path)
+data = pd.read_csv(csv_path)
+
+# 2. Get the absolute path to the folder where this app.py lives
+script_dir = os.path.dirname(os.path.abspath(__file__))
 # 1. Load Data
 data = pd.read_csv('salary_data.csv')
 X = data[['YearsExperience']]

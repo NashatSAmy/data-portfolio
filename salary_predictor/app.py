@@ -4,6 +4,13 @@ import joblib
 import matplotlib.pyplot as plt
 import numpy as np
 import os 
+# Debugging: Check current working directory and files
+st.write("Current Working Directory:", os.getcwd())
+st.write("Files in this folder:", os.listdir(os.getcwd()))
+try:
+    st.write("Files in salary_predictor folder:", os.listdir('salary_predictor'))
+except:
+    st.write("salary_predictor folder not found from here.")
 # Define paths
 script_dir = os.path.dirname(os.path.abspath(__file__))
 

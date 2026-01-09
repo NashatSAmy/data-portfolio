@@ -2,11 +2,16 @@ import requests
 from bs4 import BeautifulSoup
 import sqlite3
 import time
+import datetime
+import os
+# Get the folder where this script lives
+script_dir = os.path.dirname(os.path.abspath(__file__))
+db_path = os.path.join(os.path.dirname(script_dir), 'library.db')
 
 # --- 1. Database Setup ---
 print("🔌 Connecting to Database...")
 # Connect to the file we created earlier
-conn = sqlite3.connect('../library.db') 
+conn = sqlite3.connect(db_path)
 cursor = conn.cursor()
 
 # Safety Check: Create table if it doesn't exist yet
@@ -15,7 +20,8 @@ cursor.execute('''
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT,
         price REAL,
-        rating TEXT
+        rating TEXT,
+        scraped_at TEXT
     )
 ''')
 
@@ -31,6 +37,7 @@ def scrape_to_db(num_pages):
         response = requests.get(URL.format(page))
         soup = BeautifulSoup(response.text, "html.parser")
         books = soup.find_all("article", class_="product_pod")
+        today = datetime.date.today()
 
         for book in books:
             # Extract Data
@@ -42,9 +49,9 @@ def scrape_to_db(num_pages):
             # --- THE NEW PART (SQL Insert) ---
             # Instead of appending to a list, we write to the DB immediately
             cursor.execute('''
-                INSERT INTO books (title, price, rating) 
-                VALUES (?, ?, ?)
-            ''', (title, price, rating))
+                INSERT INTO books (title, price, rating, scraped_at) 
+                VALUES (?, ?, ?, ?)
+            ''', (title, price, rating, today))
             # ---------------------------------
 
         # Commit (Save) changes after every page so we don't lose data if it crashes

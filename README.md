@@ -154,3 +154,35 @@ To build and deploy a Machine Learning model that predicts salary based on years
 
 **Live Demo:**
 [👉 Click here to test the AI Model](https://salary-prediction-model-ai.streamlit.app/)
+
+# 📚 Project 6: Automated Book Price Tracker
+
+## 📌 Project Overview
+
+This project is an automated ETL (Extract, Transform, Load) pipeline designed to monitor book prices and availability over time. It scrapes data daily from a target bookstore, timestamps the entries, and stores them in a relational database (SQLite) to enable historical price analysis and trend tracking.
+
+This tool was built to demonstrate **backend automation**, **database management**, and **robust error handling** in a Linux environment.
+
+## 🚀 Key Features
+
+- **Automated Data Collection:** Runs autonomously via Linux Cron jobs to collect data every day at a specific hour.
+- **Historical Tracking:** Implements SCD (Slowly Changing Dimensions) Type 2 logic by timestamping every entry (`scraped_at`), allowing for time-series analysis of price changes.
+- **Robust Logging:** Generates `scraper_log.txt` to track execution status, capturing errors (e.g., connection timeouts) without crashing the pipeline.
+- **Duplicate Handling:** Custom SQL logic ensures data integrity while preserving historical context.
+
+## 🛠️ Tech Stack
+
+- **Language:** Python 3.x
+- **Database:** SQLite3
+- **Automation:** Bash & Cron (Linux Task Scheduler)
+- **Libraries:** `sqlite3`, `datetime`, `logging`, `os` (plus your scraping libraries like `requests`/`BeautifulSoup` or `Selenium`)
+
+## 📂 Project Structure
+
+```text
+├── scraper_sql.py      # Main ETL script (Extracts data, Transforms with timestamp, Loads to DB)
+├── library.db          # SQLite database storing the book data
+├── scraper_log.txt     # Log file for monitoring system health
+├── requirements.txt    # Python dependencies
+└── README.md           # Project documentation
+```

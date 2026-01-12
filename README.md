@@ -153,7 +153,7 @@ To build and deploy a Machine Learning model that predicts salary based on years
 - **Dynamic Visualization:** The app plots the user's input directly onto the regression curve to explain the "Why" behind the prediction.
 
 **Live Demo:**
-[👉 Click here to test the AI Model](https://salary-prediction-model-ai.streamlit.app/)
+[👉 Click here to test the AI Model](https://books-prediction-model-ai.streamlit.app/)
 
 📈 Project 6: End-to-End Book Market Analytics (Full Stack)
 📌 Project Overview

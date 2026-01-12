@@ -3,6 +3,9 @@ import pandas as pd
 import streamlit as st
 import os
 
+current_folder = os.path.dirname(os.path.abspath(__file__))
+db_path = os.path.join(current_folder, '..', 'library.db')
+db_path = os.path.abspath(db_path)
 # 1. Setup Page
 st.set_page_config(page_title="📚 Book Price Tracker", layout="wide")
 st.title("📚 Book Market Analytics")
@@ -11,8 +14,7 @@ st.title("📚 Book Market Analytics")
 # We use a function with @st.cache_data so it doesn't reload the DB every time you click a button
 @st.cache_data
 def load_data():
-    dbPath = os.path.abspath("../library.db")
-    conn = sqlite3.connect(dbPath)
+    conn = sqlite3.connect(db_path)
     # Read all data into a Pandas DataFrame
     df = pd.read_sql_query("SELECT * FROM books", conn)
     conn.close()

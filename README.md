@@ -155,34 +155,64 @@ To build and deploy a Machine Learning model that predicts salary based on years
 **Live Demo:**
 [👉 Click here to test the AI Model](https://salary-prediction-model-ai.streamlit.app/)
 
-# 📚 Project 6: Automated Book Price Tracker
+📈 Project 6: End-to-End Book Market Analytics (Full Stack)
+📌 Project Overview
+This project is a complete Full Stack Data Application designed to simulate and analyze real-time market volatility. It goes beyond simple scraping by building an entire ecosystem:
 
-## 📌 Project Overview
+Ingestion: An automated ETL pipeline (Cron + Python) that scrapes book prices daily.
 
-This project is an automated ETL (Extract, Transform, Load) pipeline designed to monitor book prices and availability over time. It scrapes data daily from a target bookstore, timestamps the entries, and stores them in a relational database (SQLite) to enable historical price analysis and trend tracking.
+Simulation: A custom "Market Volatility Engine" that introduces fluctuation to static data, enabling realistic time-series analysis.
 
-This tool was built to demonstrate **backend automation**, **database management**, and **robust error handling** in a Linux environment.
+Storage: A relational database (SQLite) tracking historical price changes.
 
-## 🚀 Key Features
+Visualization: An interactive Streamlit Dashboard for identifying "Market Movers" and tracking trends.
 
-- **Automated Data Collection:** Runs autonomously via Linux Cron jobs to collect data every day at a specific hour.
-- **Historical Tracking:** Implements SCD (Slowly Changing Dimensions) Type 2 logic by timestamping every entry (`scraped_at`), allowing for time-series analysis of price changes.
-- **Robust Logging:** Generates `scraper_log.txt` to track execution status, capturing errors (e.g., connection timeouts) without crashing the pipeline.
-- **Duplicate Handling:** Custom SQL logic ensures data integrity while preserving historical context.
+Access: A FastAPI backend to serve data to external applications.
 
-## 🛠️ Tech Stack
+🚀 Key Features
 
-- **Language:** Python 3.x
-- **Database:** SQLite3
-- **Automation:** Bash & Cron (Linux Task Scheduler)
-- **Libraries:** `sqlite3`, `datetime`, `logging`, `os` (plus your scraping libraries like `requests`/`BeautifulSoup` or `Selenium`)
+1. Data Engineering (The Backend)
+   Automated Pipeline: Runs autonomously via Linux Cron jobs (0 9 \* \* \*) to build a daily historical dataset.
 
-## 📂 Project Structure
+Market Simulator: Since the target website is static, I engineered a Python module to inject realistic random variance (±10%), allowing for the testing of "Best Deal" algorithms.
 
-```text
-├── scraper_sql.py      # Main ETL script (Extracts data, Transforms with timestamp, Loads to DB)
-├── library.db          # SQLite database storing the book data
-├── scraper_log.txt     # Log file for monitoring system health
-├── requirements.txt    # Python dependencies
-└── README.md           # Project documentation
-```
+Robust Logging: Self-healing script that logs errors to scraper_log.txt and uses absolute paths for reliability in headless environments.
+
+2. Business Intelligence (The Dashboard)
+   Interactive Analytics: Built a Streamlit app (dashboard.py) that visualizes price history using Line Charts.
+
+KPI Tracking: Real-time metrics showing "Total Books," "Average Market Price," and "Biggest Daily Drop."
+
+Deal Finder: A "Market Movers" algorithm that calculates day-over-day variance to highlight the top 5 discounted books.
+
+3. API Development (The Access Layer)
+   REST API: Deployed a FastAPI service (my_api.py) to expose the database via JSON endpoints.
+
+Smart Search: Includes a dynamic endpoint (/book/{title}) allowing users to query specific pricing history programmatically.
+
+Auto-Docs: Integrated Swagger UI for testing API endpoints directly in the browser.
+
+🛠️ Tech Stack
+Core: Python 3.x, Pandas, NumPy
+
+Database: SQLite3 (Relational Data Warehousing)
+
+Automation: Linux Crontab, Bash
+
+Web Frameworks: Streamlit (Dashboard), FastAPI (Backend API), Uvicorn (Server)
+
+Data Source: Web Scraping (BeautifulSoup) + Synthetic Data Generation
+
+📂 Project Structure
+Plaintext
+
+├── scraper_sql.py # Core ETL: Scrapes, Simulates, and Loads to DB
+├── dashboard.py # BI Frontend: Streamlit App with Charts & KPIs
+├── my_api.py # REST Backend: FastAPI endpoints
+├── library.db # The Data Warehouse (SQLite)
+├── scraper_log.txt # System Health Logs
+└── README.md # Documentation
+📊 Sample Insights
+Most Volatile Genre: Fiction (±12% variance)
+
+Best Time to Buy: Analysis suggests "Weekend Dips" based on the simulated algorithm.

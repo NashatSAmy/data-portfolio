@@ -1,3 +1,4 @@
+import random
 import requests
 from bs4 import BeautifulSoup
 import sqlite3
@@ -44,6 +45,8 @@ def scrape_to_db(num_pages):
             title = book.h3.a["title"]
             price_text = book.find("p", class_="price_color").text
             price = float(price_text.replace("£", "").replace("Â", ""))
+            fluctuation = random.uniform(0.90, 1.10) 
+            final_price = round(price * fluctuation, 2)
             rating = book.find("p", class_="star-rating")["class"][1]
 
             # --- THE NEW PART (SQL Insert) ---
@@ -51,7 +54,7 @@ def scrape_to_db(num_pages):
             cursor.execute('''
                 INSERT INTO books (title, price, rating, scraped_at) 
                 VALUES (?, ?, ?, ?)
-            ''', (title, price, rating, today))
+            ''', (title, final_price, rating, today))
             # ---------------------------------
 
         # Commit (Save) changes after every page so we don't lose data if it crashes

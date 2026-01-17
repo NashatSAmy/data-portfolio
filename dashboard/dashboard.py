@@ -4,8 +4,8 @@ import streamlit as st
 import os
 
 current_folder = os.path.dirname(os.path.abspath(__file__))
-db_path = os.path.join(current_folder, '..', 'library.db')
-db_path = os.path.abspath(db_path)
+
+#b_path = os.path.abspath('library.db')
 # 1. Setup Page
 st.set_page_config(page_title="📚 Book Price Tracker", layout="wide")
 st.title("📚 Book Market Analytics")
@@ -14,13 +14,34 @@ st.title("📚 Book Market Analytics")
 # We use a function with @st.cache_data so it doesn't reload the DB every time you click a button
 @st.cache_data
 def load_data():
+    # Get the folder where dashboard.py is
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+
+    # Define two possible paths
+    path_local = os.path.join(base_dir, 'library.db')      # Docker path (side-by-side)
+    path_parent = os.path.join(base_dir, '..', 'library.db') # Laptop path (parent folder)
+
+    # Check which one exists
+    if os.path.exists(path_local):
+        db_path = path_local
+    elif os.path.exists(path_parent):
+        db_path = path_parent
+    else:
+        # If neither exists, stop here
+        st.error(f"❌ Database not found! Looked in: \n1. {path_local} \n2. {path_parent}")
+        return pd.DataFrame()
+
+    # Connect to the valid path
     conn = sqlite3.connect(db_path)
-    # Read all data into a Pandas DataFrame
-    df = pd.read_sql_query("SELECT * FROM books", conn)
-    conn.close()
+    try:
+        df = pd.read_sql_query("SELECT * FROM books", conn)
+        df['scraped_at'] = pd.to_datetime(df['scraped_at'])
+    except pd.errors.DatabaseError:
+        st.error("❌ Table 'books' not found. Database might be empty.")
+        return pd.DataFrame()
+    finally:
+        conn.close()
     
-    # Convert 'scraped_at' to a real datetime object for plotting
-    df['scraped_at'] = pd.to_datetime(df['scraped_at'])
     return df
 
 df = load_data()
